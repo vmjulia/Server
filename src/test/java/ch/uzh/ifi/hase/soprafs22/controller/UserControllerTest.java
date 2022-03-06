@@ -75,7 +75,7 @@ public class UserControllerTest {
     user.setId(1L);
     user.setPassword("Test User");
     user.setUsername("testUsername");
-    user.setToken("1");
+    //user.setCreationDate("1");
     user.setStatus(UserStatus.ONLINE);
 
     UserPostDTO userPostDTO = new UserPostDTO();

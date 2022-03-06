@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * User Service
@@ -42,9 +41,8 @@ public class UserService {
   }
 
   public User createUser(User newUser) {
-      LocalDate localDate = LocalDate.now();
-      String currentDate = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    newUser.setToken(currentDate);
+      Date localDate = Calendar.getInstance().getTime();
+    newUser.setCreationDate(localDate);
     newUser.setStatus(UserStatus.OFFLINE);
 
     //checkIfEmpty(newUser);

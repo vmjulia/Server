@@ -8,13 +8,13 @@ public class UserGetDTO {
   private String password;
   private String username;
   private UserStatus status;
-  private String token;
+  private String creationDate;
 
-    public String getToken() {
-        return token;
+    public String getCreationDate() {
+        return creationDate;
     }
-    public void setToken(String token) {
-        this.token = token;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
   public Long getId() {
