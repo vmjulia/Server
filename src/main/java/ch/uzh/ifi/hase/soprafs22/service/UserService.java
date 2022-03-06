@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User Service
@@ -39,6 +40,13 @@ public class UserService {
   public List<User> getUsers() {
     return this.userRepository.findAll();
   }
+
+
+    public User getUserById(Long id){
+       Optional<User> user =  userRepository.findById(id);
+       User foundUser = user.get();
+       return foundUser;
+        }
 
   public User createUser(User newUser) {
       Date localDate = Calendar.getInstance().getTime();

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User Controller
@@ -41,6 +42,15 @@ public class UserController {
     }
     return userGetDTOs;
   }
+
+
+    @GetMapping("/users/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public UserGetDTO getUserById(@PathVariable Long userId) {
+        User foundUser = userService.getUserById(userId);
+        return DTOMapper.INSTANCE.convertEntityToUserGetDTO(foundUser);
+    }
 
   @PostMapping("/users")
   @ResponseStatus(HttpStatus.CREATED)
