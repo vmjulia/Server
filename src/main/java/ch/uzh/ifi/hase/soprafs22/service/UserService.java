@@ -47,7 +47,7 @@ public class UserService {
     newUser.setToken(currentDate);
     newUser.setStatus(UserStatus.OFFLINE);
 
-    checkIfEmpty(newUser);
+    //checkIfEmpty(newUser);
     checkIfUserExists(newUser);
 
     // saves the given entity but data is only persisted in the database once
@@ -71,14 +71,14 @@ public class UserService {
    */
   private void checkIfUserExists(User userToBeCreated) {
     User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
-    String baseErrorMessage = "The %s provided %s not unique. Therefore, the user could not be created!";
+    String baseErrorMessage = "add User failed because username already exists";
     if (userByUsername != null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-          String.format(baseErrorMessage, "username", "is"));
+          String.format(baseErrorMessage));
     }
   }
 
-
+/**
     private void checkIfEmpty(User userToBeCreated) {
 
         String baseErrorMessage = "The %s provided is null. Therefore, the user could not be created!";
@@ -91,4 +91,5 @@ public class UserService {
                     String.format(baseErrorMessage, "password"));
         }
     }
+ */
 }
