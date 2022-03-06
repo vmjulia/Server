@@ -64,10 +64,7 @@ public class UserService {
 
     public void updateUserById(Long id, User userNew){
 
-        if (userNew.getStatus() == UserStatus.OFFLINE){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    String.format("Not authorized"));
-        };
+
         if (userNew.getId() != id){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     String.format("Not authorized"));
@@ -77,9 +74,10 @@ public class UserService {
 
         if (user.isPresent()){
             User foundUser = user.get();
-            foundUser.setUsername(userNew.getUsername());
+
             foundUser.setBirthDate(userNew.getBirthDate());
-            foundUser.setPassword(userNew.getPassword());
+            foundUser.setStatus(userNew.getStatus());
+
 
         }
 
