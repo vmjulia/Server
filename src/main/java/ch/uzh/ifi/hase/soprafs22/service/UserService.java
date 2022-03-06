@@ -44,8 +44,15 @@ public class UserService {
 
     public User getUserById(Long id){
        Optional<User> user =  userRepository.findById(id);
-       User foundUser = user.get();
-       return foundUser;
+        if (user.isPresent()){
+            User foundUser = user.get();
+            return foundUser;
+        }
+
+       else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("user with %s was not found", id));
+        }
         }
 
   public User createUser(User newUser) {
