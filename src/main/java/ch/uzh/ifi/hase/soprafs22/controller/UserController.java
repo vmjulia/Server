@@ -46,8 +46,8 @@ public class UserController {
   @GetMapping("/users/{userId}")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public UserGetDTO getUserById(@PathVariable Long id, @RequestBody Long userId) {
-        User foundUser = userService.getUserById(id, userId);
+  public UserGetDTO getUserById(@PathVariable Long userId, @RequestBody Long id) {
+        User foundUser = userService.getUserById(userId, id);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(foundUser);
     }
 
@@ -64,4 +64,11 @@ public class UserController {
     // convert internal representation of user back to API
     return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
   }
+
+  @PutMapping("/users/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseBody
+    public void updateUser(@PathVariable Long userId, @RequestBody User user) {
+        userService.updateUserById(userId, user);
+    }
 }

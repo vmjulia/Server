@@ -61,6 +61,34 @@ public class UserService {
         }
   }
 
+
+    public void updateUserById(Long id, User userNew){
+
+        if (userNew.getStatus() == UserStatus.OFFLINE){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    String.format("Not authorized"));
+        };
+        if (userNew.getId() != id){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    String.format("Not authorized"));
+        };
+
+        Optional<User> user =  userRepository.findById(id);
+
+        if (user.isPresent()){
+            User foundUser = user.get();
+            foundUser.setUsername(userNew.getUsername());
+            foundUser.setBirthDate(userNew.getBirthDate());
+            foundUser.setPassword(userNew.getPassword());
+
+        }
+
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("user with %s was not found", id));
+        }
+    }
+
   public User createUser(User newUser) {
       Date localDate = Calendar.getInstance().getTime();
     newUser.setCreationDate(localDate);
