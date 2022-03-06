@@ -73,7 +73,7 @@ public class UserService {
     User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
     String baseErrorMessage = "add User failed because username already exists";
     if (userByUsername != null) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+      throw new ResponseStatusException(HttpStatus.CONFLICT,
           String.format(baseErrorMessage));
     }
   }
