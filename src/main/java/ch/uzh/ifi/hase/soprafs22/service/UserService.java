@@ -72,7 +72,7 @@ public class UserService {
             User foundUser = user.get();
 
             foundUser.setBirthDate(userNew.getBirthDate());
-            foundUser.setStatus(userNew.getStatus());
+            foundUser.setUsername(userNew.getUsername());
 
 
         }
