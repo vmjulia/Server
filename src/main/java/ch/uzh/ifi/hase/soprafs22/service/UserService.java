@@ -42,12 +42,8 @@ public class UserService {
   }
 
 
-  public User getUserById(Long id, Long userId){
-      Optional<User> userRequest =  userRepository.findById(userId);
-      if (userRequest.get().getStatus() == UserStatus.OFFLINE){
-          throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                  String.format("Not authorized"));
-      };
+  public User getUserById(Long id ){
+
        Optional<User> user =  userRepository.findById(id);
 
         if (user.isPresent()){
@@ -88,6 +84,7 @@ public class UserService {
     }
 
   public User createUser(User newUser) {
+
       Date localDate = Calendar.getInstance().getTime();
     newUser.setCreationDate(localDate);
     newUser.setStatus(UserStatus.OFFLINE);
