@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.rest.mapper;
 
 import ch.uzh.ifi.hase.soprafs22.entity.User;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs22.rest.dto.UserLoginRegisterDTO;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserPutDTO;
 import org.mapstruct.*;
@@ -42,4 +43,14 @@ public interface DTOMapper {
     @Mapping(source = "logged_in", target = "status")
     @Mapping(source = "birthday", target = "birthday")
     User convertUserGetDTOtoEntity(UserGetDTO usergetDTO);
+
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "token", target = "token")
+    @Mapping(source = "username", target = "username")
+    @Mapping(source = "creationDate", target = "creation_date")
+    @Mapping(source = "status", target = "logged_in")
+    @Mapping(source = "birthday", target = "birthday")
+    UserLoginRegisterDTO convertEntityToUserLoginRegisterDTO(User user);
 }
+

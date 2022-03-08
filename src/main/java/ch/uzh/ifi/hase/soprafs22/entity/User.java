@@ -41,7 +41,7 @@ public class User implements Serializable {
   @Column(nullable = true)
   private Date birthday;
 
-  @Column(nullable = true, unique = true)
+  @Column(nullable = false, unique = true)
   private String token;
 
   public String getToken() { return token;}
