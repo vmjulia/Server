@@ -91,7 +91,7 @@ public User loginUser(User newUser){
                     String.format("password is wrong" ));
         }
         else {
-            userByUsername.setStatus(UserStatus.ONLINE);
+            userByUsername.setStatus(true);
             return (userByUsername);
         }
     }
@@ -102,14 +102,14 @@ public User loginUser(User newUser){
 
       Date localDate = Calendar.getInstance().getTime();
     newUser.setCreationDate(localDate);
-    newUser.setStatus(UserStatus.OFFLINE);
+    newUser.setStatus(false);
 
     //checkIfEmpty(newUser);
     checkIfUserExists(newUser);
 
     // saves the given entity but data is only persisted in the database once
     // flush() is called
-      newUser.setStatus(UserStatus.ONLINE);
+      newUser.setStatus(true);
     newUser = userRepository.save(newUser);
     userRepository.flush();
 

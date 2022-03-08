@@ -48,7 +48,7 @@ public class UserGetDTO {
     public Date getBirthday() {
         return birthday;
     }
-    public void setBirthday(Date creationDate) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
