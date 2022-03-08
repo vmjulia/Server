@@ -6,54 +6,57 @@ import java.util.Date;
 
 public class UserGetDTO {
 
-  private Long id;
-  private String password;
-  private String username;
-  private UserStatus status;
-  private Date creationDate;
-    private Date birthDate;
+    private Long id;
+    private String username;
+    private Date creation_date;
+    private Boolean logged_in;
+    private Date birthday;
 
-
-    public Date getBirthDate() {
-        return birthDate;
+    public Long getId() {
+        return id;
     }
-    public void setBirthDate(Date creationDate) {
-        this.birthDate = birthDate;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-
-    public Date getCreationDate() {
-        return creationDate;
+    public String getUsername() {
+        return username;
     }
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-  public Long getId() {
-    return id;
-  }
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Date getCreation_date() {
+        return creation_date;
+    }
+    public void setCreation_date(Date creation_date) {
+        this.creation_date = creation_date;
+    }
 
-  public String getPassword() {
-    return password;
-  }
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public Boolean getLogged_in() {
+        return logged_in;
+    }
+    public void setLogged_in(UserStatus logged_in) {
+        if (logged_in == UserStatus.ONLINE){
+            this.logged_in = true;
+        }
+        else {
+            this.logged_in = false;
+        }
+    }
 
-  public String getUsername() {
-    return username;
-  }
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public Date getBirthday() {
+        return birthday;
+    }
+    public void setBirthday(Date creationDate) {
+        this.birthday = birthday;
+    }
 
-  public UserStatus getStatus() {
-    return status;
-  }
-  public void setStatus(UserStatus status) {
-    this.status = status;
-  }
+
+
+
+
+
+
+
 }

@@ -6,14 +6,14 @@ import java.util.Date;
 public class UserPutDTO {
 
     private String username;
-    private Date birthDate;
+    private Date birthday;
 
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getBirthday() {
+        return birthday;
     }
-    public void setBirthDate(Date creationDate) {
-        this.birthDate = birthDate;
+    public void setBirthday(Date creationDate) {
+        this.birthday = birthday;
     }
 
 

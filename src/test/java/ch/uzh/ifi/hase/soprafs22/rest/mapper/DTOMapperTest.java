@@ -25,7 +25,7 @@ public class DTOMapperTest {
     User user = DTOMapper.INSTANCE.convertUserPostDTOtoEntity(userPostDTO);
 
     // check content
-    assertEquals(userPostDTO.getPassword(), user.getPassword());
+    //assertEquals(userPostDTO.getPassword(), user.getPassword());
     assertEquals(userPostDTO.getUsername(), user.getUsername());
   }
 
@@ -43,8 +43,8 @@ public class DTOMapperTest {
 
     // check content
     assertEquals(user.getId(), userGetDTO.getId());
-    assertEquals(user.getPassword(), userGetDTO.getPassword());
+    //assertEquals(user.getPassword(), userGetDTO.getPassword());
     assertEquals(user.getUsername(), userGetDTO.getUsername());
-    assertEquals(user.getStatus(), userGetDTO.getStatus());
+    assertEquals(user.getStatus(), userGetDTO.getLogged_in());
   }
 }

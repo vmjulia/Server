@@ -39,14 +39,20 @@ public class User implements Serializable {
   private UserStatus status;
 
   @Column(nullable = true)
-  private Date birthDate;
+  private Date birthday;
 
-  public Date getBirthDate() {
-        return birthDate;
+  @Column(nullable = false, unique = true)
+  private String token;
+
+  public String getToken() { return token;}
+  public void setToken( String token)  { this.token = token;}
+
+  public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthday(Date birthDate) {
+        this.birthday = birthDate;
     }
 
   public Long getId() {

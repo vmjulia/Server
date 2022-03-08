@@ -61,17 +61,12 @@ public class UserService {
     public void updateUserById(Long id, User userNew){
 
 
-        if (userNew.getId() != id){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    String.format("Not authorized"));
-        };
-
         Optional<User> user =  userRepository.findById(id);
 
         if (user.isPresent()){
             User foundUser = user.get();
 
-            foundUser.setBirthDate(userNew.getBirthDate());
+            foundUser.setBirthday(userNew.getBirthday());
             foundUser.setUsername(userNew.getUsername());
 
 
@@ -82,6 +77,26 @@ public class UserService {
                     String.format("user with %s was not found", id));
         }
     }
+
+
+public User loginUser(User newUser){
+    User userByUsername = userRepository.findByUsername(newUser.getUsername());
+    if (userByUsername == null) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("user with %s was not found" ));
+    }
+    else {
+        if (userByUsername.getPassword() != newUser.getPassword()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                    String.format("password is wrong" ));
+        }
+        else {
+            userByUsername.setStatus(UserStatus.ONLINE);
+            return (userByUsername);
+        }
+    }
+
+}
 
   public User createUser(User newUser) {
 
@@ -94,11 +109,13 @@ public class UserService {
 
     // saves the given entity but data is only persisted in the database once
     // flush() is called
+      newUser.setStatus(UserStatus.ONLINE);
     newUser = userRepository.save(newUser);
     userRepository.flush();
 
     log.debug("Created Information for User: {}", newUser);
     return newUser;
+
   }
 
   /**
