@@ -86,7 +86,7 @@ public User loginUser(User newUser){
                 String.format("user with %s was not found" ));
     }
     else {
-        if (userByUsername.getPassword() != newUser.getPassword()){
+        if (!userByUsername.getPassword().equals(newUser.getPassword())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
                     String.format("password is wrong" ));
         }

@@ -23,12 +23,12 @@ public class UserRepositoryIntegrationTest {
   private UserRepository userRepository;
 
   @Test
-  public void findByName_success() {
+  public void findByUsername_success() {
     // given
     User user = new User();
     user.setPassword("Firstname Lastname");
     user.setUsername("firstname@lastname");
-    user.setStatus(UserStatus.OFFLINE);
+    user.setStatus(false);
       Date localDate = Calendar.getInstance().getTime();
     user.setCreationDate(localDate);
 

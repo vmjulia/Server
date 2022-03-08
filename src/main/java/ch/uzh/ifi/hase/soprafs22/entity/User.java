@@ -32,7 +32,7 @@ public class User implements Serializable {
   @Column(nullable = false)
   private String password;
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = true, unique = true)
   private Date creationDate;
 
   @Column(nullable = false)
@@ -41,7 +41,7 @@ public class User implements Serializable {
   @Column(nullable = true)
   private Date birthday;
 
-  @Column(nullable = false, unique = true)
+  @Column(nullable = true, unique = true)
   private String token;
 
   public String getToken() { return token;}
