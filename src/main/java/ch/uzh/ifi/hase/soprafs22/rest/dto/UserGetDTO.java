@@ -37,7 +37,7 @@ public class UserGetDTO {
         return logged_in;
     }
     public void setLogged_in(UserStatus logged_in) {
-        if (logged_in == UserStatus.ONLINE){
+        if ( logged_in == UserStatus.ONLINE){
             this.logged_in = true;
         }
         else {

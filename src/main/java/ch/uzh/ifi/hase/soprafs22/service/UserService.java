@@ -62,6 +62,7 @@ public class UserService {
 
         if (user.isPresent()){
             User foundUser = user.get();
+            checkIfAnotherUserExists(userNew, foundUser);
 
             foundUser.setBirthday(userNew.getBirthday());
             foundUser.setUsername(userNew.getUsername());
@@ -71,7 +72,7 @@ public class UserService {
 
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("user with %s was not found", id));
+                    String.format("user was not found"));
         }
     }
 
@@ -134,6 +135,15 @@ public User loginUser(User newUser){
           String.format(baseErrorMessage));
     }
   }
+
+    private void checkIfAnotherUserExists(User userToBeCreated, User existingUser) {
+        User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
+        String baseErrorMessage = "change User failed because username already exists";
+        if (userByUsername != null && userByUsername != existingUser) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    String.format(baseErrorMessage));
+        }
+    }
 
 /**
     private void checkIfEmpty(User userToBeCreated) {
