@@ -31,6 +31,8 @@ public class UserRepositoryIntegrationTest {
     user.setStatus(UserStatus.OFFLINE);
       Date localDate = Calendar.getInstance().getTime();
     user.setCreationDate(localDate);
+      user.setToken("1");
+
 
     entityManager.persist(user);
     entityManager.flush();
@@ -42,7 +44,7 @@ public class UserRepositoryIntegrationTest {
     assertNotNull(found.getId());
     assertEquals(found.getPassword(), user.getPassword());
     assertEquals(found.getUsername(), user.getUsername());
-    //assertEquals(found.getCreationDate(), user.getCreationDate());
+    assertEquals(found.getCreationDate(), user.getCreationDate());
     assertEquals(found.getStatus(), user.getStatus());
   }
 }
