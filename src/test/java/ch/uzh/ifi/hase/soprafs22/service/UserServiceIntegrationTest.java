@@ -136,4 +136,102 @@ public class UserServiceIntegrationTest {
 
         assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser2));
     }
+
+
+    @Test
+    public void getbyId_Success() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+
+        User foundUser = userService.getUserById(1L);
+
+
+
+        // check that an error is thrown
+        assertEquals(testUser.getPassword(), foundUser.getPassword());
+        assertEquals(testUser.getUsername(), foundUser.getUsername());
+        assertEquals(testUser.getId(), foundUser.getId());
+    }
+
+    @Test
+    public void getbyId_Fail() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+
+        assertThrows(ResponseStatusException.class, () -> userService.getUserById(2L));
+    }
+
+
+    @Test
+    public void updatebyId_Success() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+        User testUser2 = new User();
+        testUser2.setUsername("testUsername2");
+
+
+
+        userService.updateUserById(1L, testUser2);
+        User res = userService.getUserById(1L);
+
+        // check that an error is thrown
+
+        assertEquals(res.getUsername(), testUser2.getUsername());
+
+    }
+
+    @Test
+    public void updatebyId_Fail_notfound() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+        User testUser2 = new User();
+        testUser2.setUsername("testUsername2");
+
+        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(2L, testUser2));
+
+    }
+
+    @Test
+    public void updatebyId_Fail_repetitiveName() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        User testUser2 = new User();
+        testUser2.setPassword("testName2");
+        testUser2.setUsername("testUsername2");
+        testUser2.setId(2L);
+        userService.createUser(testUser);
+        userService.createUser(testUser2);
+
+
+        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(1L, testUser2));
+
+    }
 }
