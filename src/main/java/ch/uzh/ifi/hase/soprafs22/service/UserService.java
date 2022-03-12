@@ -88,7 +88,7 @@ public User loginUser(User newUser){
     User userByUsername = userRepository.findByUsername(newUser.getUsername());
     if (userByUsername == null) {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("user with %s was not found" ));
+                String.format("user with was not found" ));
     }
     else {
         if (!userByUsername.getPassword().equals(newUser.getPassword())){
