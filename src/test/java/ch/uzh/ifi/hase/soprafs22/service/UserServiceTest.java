@@ -118,6 +118,10 @@ public class UserServiceTest {
         testUser2.setId(1L);
         testUser2.setStatus(UserStatus.OFFLINE);
         testUser2.setUsername("testUsername2");
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse("2018-09-08");
+        testUser2.setBirthday(date);
 
         Optional<User> userOptional = Optional.ofNullable(testUser);
         Mockito.when(userRepository.findById(Mockito.any())).thenReturn(userOptional);
@@ -126,6 +130,7 @@ public class UserServiceTest {
         assertEquals(testUser.getId(), testUser2.getId());
         assertEquals(testUser.getUsername(), testUser2.getUsername());
         assertEquals(testUser.getStatus(), testUser2.getStatus());
+        assertEquals(testUser.getBirthday(), testUser2.getBirthday());
     }
 
 
@@ -142,6 +147,36 @@ public class UserServiceTest {
         Mockito.when(userRepository.findById(Mockito.any())).thenReturn(userOptional);
 
         assertThrows(ResponseStatusException.class, () -> userService.updateUserById(1L, testUser2));
+    }
+
+    @Test
+    public void login_validInputs_success() {
+        // when -> any object is being save in the userRepository -> return the dummy
+        // testUser
+
+
+        Mockito.when(userRepository.findByUsername(Mockito.any())).thenReturn(testUser);
+
+        User loggedInUser = userService.loginUser(testUser);
+
+        assertEquals(testUser.getId(), loggedInUser.getId());
+        assertEquals(testUser.getPassword(), loggedInUser.getPassword());
+        assertEquals(testUser.getUsername(), loggedInUser.getUsername());
+        assertEquals(UserStatus.ONLINE, loggedInUser.getStatus());
+    }
+
+    @Test
+    public void login_validInputs_WrongPassword() {
+        // when -> any object is being save in the userRepository -> return the dummy
+        // testUser
+        User testUser2 = new User();
+        testUser2.setId(1L);
+        testUser2.setPassword("testPassword2");
+        testUser2.setUsername("testUsername");
+
+        Mockito.when(userRepository.findByUsername(Mockito.any())).thenReturn(testUser);
+
+        assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser2));
     }
 
 
