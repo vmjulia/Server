@@ -82,7 +82,7 @@ public class UserService {
     }
 
 
-    
+
 
 public User loginUser(User newUser){
     User userByUsername = userRepository.findByUsername(newUser.getUsername());
