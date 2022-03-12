@@ -179,5 +179,15 @@ public class UserServiceTest {
         assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser2));
     }
 
+    @Test
+    public void login_validInputs_UserDoesNotExist() {
+        // when -> any object is being save in the userRepository -> return the dummy
+        // testUser
+
+        Mockito.when(userRepository.findByUsername(Mockito.any())).thenReturn(null);
+
+        assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser));
+    }
+
 
 }
