@@ -9,7 +9,7 @@ public class UserLoginRegisterDTO {
     private Long id;
     private String username;
     private Date creation_date;
-    private Boolean logged_in;
+    private boolean logged_in;
     private Date birthday;
     private String token;
 
@@ -34,7 +34,7 @@ public class UserLoginRegisterDTO {
         this.creation_date = creation_date;
     }
 
-    public Boolean getLogged_in() {
+    public boolean getLogged_in() {
         return logged_in;
     }
     public void setLogged_in(UserStatus logged_in) {
