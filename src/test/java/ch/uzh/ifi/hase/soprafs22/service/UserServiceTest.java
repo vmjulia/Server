@@ -9,9 +9,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserServiceTest {
 
@@ -30,7 +44,7 @@ public class UserServiceTest {
     // given
     testUser = new User();
     testUser.setId(1L);
-    testUser.setPassword("testName");
+    testUser.setPassword("testPassword");
     testUser.setUsername("testUsername");
 
     // when -> any object is being save in the userRepository -> return the dummy
@@ -51,26 +65,11 @@ public class UserServiceTest {
     assertEquals(testUser.getPassword(), createdUser.getPassword());
     assertEquals(testUser.getUsername(), createdUser.getUsername());
     assertNotNull(createdUser.getCreationDate());
-    //assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
+    assertEquals(UserStatus.ONLINE, createdUser.getStatus());
   }
 
   @Test
-  public void createUser_duplicateName_throwsException() {
-    // given -> a first user has already been created
-    userService.createUser(testUser);
-
-    // when -> setup additional mocks for UserRepository
-
-    Mockito.when(userRepository.findByUsername(Mockito.any())).thenReturn(testUser);
-
-    // then -> attempt to create second user with same user -> check that an error
-    // is thrown - not relevant anymore since password does not have to be unique.
-
-      assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser));
-  }
-
-  @Test
-  public void createUser_duplicateInputs_throwsException() {
+  public void createUser_duplicateUsernameName_throwsException() {
     // given -> a first user has already been created
     userService.createUser(testUser);
 
@@ -80,7 +79,70 @@ public class UserServiceTest {
 
     // then -> attempt to create second user with same user -> check that an error
     // is thrown
-    assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser));
+
+      assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser));
   }
+
+
+
+    @Test
+    public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
+        // given
+
+        List<User> allUsers = Collections.singletonList(testUser);
+        Mockito.when(userRepository.findAll()).thenReturn(allUsers);
+        List<User> foundUsers = userService.getUsers();
+
+
+        assertEquals(allUsers.get(0).getId(), foundUsers.get(0).getId());
+        assertEquals(allUsers.get(0).getPassword(), foundUsers.get(0).getPassword());
+        assertEquals(allUsers.get(0).getUsername(), foundUsers.get(0).getUsername());
+
+    }
+
+    @Test
+    public void givenUserId_whenGetUser_notfound() throws Exception {
+        // given
+        Optional<User> userOptional = Optional.ofNullable(null);
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(userOptional);
+
+        assertThrows(ResponseStatusException.class, () -> userService.getUserById(1L));
+    }
+
+
+    @Test
+    public void changeUserById_successfully() throws Exception {
+        // given
+
+        User testUser2 = new User();
+        testUser2.setId(1L);
+        testUser2.setStatus(UserStatus.OFFLINE);
+        testUser2.setUsername("testUsername2");
+
+        Optional<User> userOptional = Optional.ofNullable(testUser);
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(userOptional);
+        userService.updateUserById(1L, testUser2);
+
+        assertEquals(testUser.getId(), testUser2.getId());
+        assertEquals(testUser.getUsername(), testUser2.getUsername());
+        assertEquals(testUser.getStatus(), testUser2.getStatus());
+    }
+
+
+    @Test
+    public void changeUserById_NotFound() throws Exception {
+        // given
+
+        User testUser2 = new User();
+        testUser2.setId(1L);
+        testUser2.setStatus(UserStatus.ONLINE);
+        testUser2.setUsername("testUsername2");
+
+        Optional<User> userOptional = Optional.ofNullable(null);
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(userOptional);
+
+        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(1L, testUser2));
+    }
+
 
 }

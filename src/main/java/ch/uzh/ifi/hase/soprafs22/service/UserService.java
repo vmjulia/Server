@@ -55,7 +55,7 @@ public class UserService {
   }
 
 
-    public void updateUserById(Long id, User userNew){
+  public void updateUserById(Long id, User userNew){
 
 
         Optional<User> user =  userRepository.findById(id);
