@@ -38,9 +38,10 @@ public class UserPutDTO {
         if (logged_in!= null && logged_in == true) {
             return (UserStatus.ONLINE);
         }
-        else {
+        else if (logged_in!= null){
             return (UserStatus.OFFLINE);
         }
+        else {return null;}
     }
 
 
