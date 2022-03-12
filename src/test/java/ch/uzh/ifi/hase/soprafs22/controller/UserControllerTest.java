@@ -17,7 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -46,9 +48,18 @@ public class UserControllerTest {
   @Test
   public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
     // given
-    User user = new User();
-    user.setPassword("Firstname Lastname");
-    user.setUsername("firstname@lastname");
+
+
+     User user = new User();
+
+     user.setId(1L);
+     user.setUsername("some username");
+
+      Date date = Calendar.getInstance().getTime();
+     String d = "2020-10-10";
+      user.setBirthday(d);
+      user.setCreationDate(d);
+
     user.setStatus(UserStatus.OFFLINE);
 
     List<User> allUsers = Collections.singletonList(user);
@@ -62,10 +73,11 @@ public class UserControllerTest {
 
     // then
     mockMvc.perform(getRequest).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(1)))
-        //.andExpect(jsonPath("$[0].password", is(user.getPassword())))
-        .andExpect(jsonPath("$[0].username", is(user.getUsername())));
-        //.andExpect(jsonPath("$[0].status", is(user.getStatus().toString())));
+            .andExpect(jsonPath("$", hasSize(1)))
+            .andExpect(jsonPath("$[0].id",  is(user.getId().intValue())))
+            .andExpect(jsonPath("$[0].creation_date", is(user.getCreationDate())))
+            .andExpect(jsonPath("$[0].username", is(user.getUsername())))
+            .andExpect(jsonPath("$[0].birthday", is(user.getBirthday())));
   }
 
   @Test
