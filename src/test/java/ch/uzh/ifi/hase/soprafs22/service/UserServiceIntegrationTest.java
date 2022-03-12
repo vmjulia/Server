@@ -66,11 +66,74 @@ public class UserServiceIntegrationTest {
     // attempt to create second user with same username
     User testUser2 = new User();
 
-    // change the name but forget about the username
+    // change the password but forget about the username
     testUser2.setPassword("testName2");
     testUser2.setUsername("testUsername");
 
     // check that an error is thrown
     assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser2));
   }
+
+    @Test
+    public void login_Success() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+        // attempt to create second user with same username
+        User testUser2 = new User();
+        testUser2.setPassword("testName");
+        testUser2.setUsername("testUsername");
+        User loggedinUser = userService.loginUser(testUser2);
+
+
+
+        // check that an error is thrown
+        assertEquals(testUser.getPassword(), loggedinUser.getPassword());
+        assertEquals(testUser.getUsername(), loggedinUser.getUsername());
+        assertEquals(testUser.getId(), loggedinUser.getId());
+    }
+
+
+    @Test
+    public void login_fail_wrong_password() {
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+        // attempt to create second user with same username
+        User testUser2 = new User();
+        testUser2.setPassword("testName2");
+        testUser2.setUsername("testUsername");
+
+        assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser2));
+    }
+
+
+    @Test
+    public void login_fail_wrong_username() {
+        assertNull(userRepository.findByUsername("testUsername"));
+        assertNull(userRepository.findByUsername("testUsername2"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+        testUser.setId(1L);
+        userService.createUser(testUser);
+
+        // attempt to create second user with same username
+        User testUser2 = new User();
+        testUser2.setPassword("testName");
+        testUser2.setUsername("testUsername2");
+
+        assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser2));
+    }
 }
