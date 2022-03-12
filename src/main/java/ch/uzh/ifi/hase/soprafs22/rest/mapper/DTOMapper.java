@@ -42,7 +42,7 @@ public interface DTOMapper {
     @Mapping(source = "creation_date", target = "creationDate")
     @Mapping(source = "logged_in", target = "status")
     @Mapping(source = "birthday", target = "birthday")
-    User convertUserGetDTOtoEntity(UserGetDTO usergetDTO);
+    User convertUserPutDTOtoEntity(UserPutDTO userputDTO);
 
 
     @Mapping(source = "id", target = "id")

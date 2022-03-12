@@ -28,7 +28,7 @@ public class UserRepositoryIntegrationTest {
     User user = new User();
     user.setPassword("Firstname Lastname");
     user.setUsername("firstname@lastname");
-    user.setStatus(false);
+    user.setStatus(UserStatus.OFFLINE);
       Date localDate = Calendar.getInstance().getTime();
     user.setCreationDate(localDate);
 

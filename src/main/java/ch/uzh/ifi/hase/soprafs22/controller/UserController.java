@@ -2,6 +2,7 @@ package ch.uzh.ifi.hase.soprafs22.controller;
 
 import ch.uzh.ifi.hase.soprafs22.entity.User;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserGetDTO;
+import ch.uzh.ifi.hase.soprafs22.rest.dto.UserPutDTO;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserPostDTO;
 import ch.uzh.ifi.hase.soprafs22.rest.dto.UserLoginRegisterDTO;
 import ch.uzh.ifi.hase.soprafs22.rest.mapper.DTOMapper;
@@ -97,9 +98,11 @@ public class UserController {
   @PutMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
-    public void updateUser(@PathVariable Long userId, @RequestBody UserGetDTO userGetDTO) {
+    public void updateUser(@PathVariable Long userId, @RequestBody UserPutDTO userPutDTO) {
       // convert API user to internal representation
-      User userInput = DTOMapper.INSTANCE.convertUserGetDTOtoEntity(userGetDTO);
+      User userInput = DTOMapper.INSTANCE.convertUserPutDTOtoEntity(userPutDTO);
       userService.updateUserById(userId, userInput);
     }
+
+
 }

@@ -91,12 +91,9 @@ public class User implements Serializable {
     return status;
   }
 
-  public void setStatus(Boolean status) {
-    if (status!= null && !status){
-        this.status = UserStatus.OFFLINE;
-    }
-    else{
-        this.status = UserStatus.ONLINE;
+  public void setStatus(UserStatus status) {
+        this.status = status;
+
     }
   }
-}
+

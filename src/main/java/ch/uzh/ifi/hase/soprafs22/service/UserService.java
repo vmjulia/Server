@@ -62,12 +62,17 @@ public class UserService {
 
         if (user.isPresent()){
             User foundUser = user.get();
-            checkIfAnotherUserExists(userNew, foundUser);
 
-            foundUser.setBirthday(userNew.getBirthday());
-            foundUser.setUsername(userNew.getUsername());
+            if (userNew.getUsername() != null){
+                checkIfAnotherUserExists(userNew, foundUser);
+                foundUser.setUsername(userNew.getUsername());}
+
+            if (userNew.getBirthday() != null){
+            foundUser.setBirthday(userNew.getBirthday());}
 
 
+            if (userNew.getStatus() != null && userNew.getStatus() == UserStatus.OFFLINE){
+                foundUser.setStatus(UserStatus.OFFLINE);}
         }
 
         else {
@@ -75,6 +80,9 @@ public class UserService {
                     String.format("user was not found"));
         }
     }
+
+
+
 
 
 public User loginUser(User newUser){
@@ -89,7 +97,7 @@ public User loginUser(User newUser){
                     String.format("password is wrong" ));
         }
         else {
-            userByUsername.setStatus(true);
+            userByUsername.setStatus(UserStatus.ONLINE);
             return (userByUsername);
         }
     }
@@ -101,14 +109,14 @@ public User loginUser(User newUser){
 
       Date localDate = Calendar.getInstance().getTime();
     newUser.setCreationDate(localDate);
-    newUser.setStatus(false);
+
 
     //checkIfEmpty(newUser);
     checkIfUserExists(newUser);
 
     // saves the given entity but data is only persisted in the database once
     // flush() is called
-      newUser.setStatus(true);
+      newUser.setStatus(UserStatus.ONLINE);
     newUser = userRepository.save(newUser);
     userRepository.flush();
 

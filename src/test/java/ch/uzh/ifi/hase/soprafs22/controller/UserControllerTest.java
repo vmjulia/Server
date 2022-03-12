@@ -49,7 +49,7 @@ public class UserControllerTest {
     User user = new User();
     user.setPassword("Firstname Lastname");
     user.setUsername("firstname@lastname");
-    user.setStatus(false);
+    user.setStatus(UserStatus.OFFLINE);
 
     List<User> allUsers = Collections.singletonList(user);
 
@@ -76,7 +76,7 @@ public class UserControllerTest {
     user.setPassword("Test User");
     user.setUsername("testUsername");
     //user.setCreationDate("1");
-    user.setStatus(true);
+    user.setStatus(UserStatus.ONLINE);
 
     UserPostDTO userPostDTO = new UserPostDTO();
     userPostDTO.setPassword("Test User");

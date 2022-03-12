@@ -1,21 +1,23 @@
 package ch.uzh.ifi.hase.soprafs22.rest.dto;
 
+import ch.uzh.ifi.hase.soprafs22.constant.UserStatus;
 
 import java.util.Date;
 
 public class UserPutDTO {
 
+    private Long id;
     private String username;
+    private Date creation_date;
+    private Boolean logged_in;
     private Date birthday;
 
-
-    public Date getBirthday() {
-        return birthday;
+    public Long getId() {
+        return id;
     }
-    public void setBirthday(Date creationDate) {
-        this.birthday = birthday;
+    public void setId(Long id) {
+        this.id = id;
     }
-
 
     public String getUsername() {
         return username;
@@ -23,6 +25,43 @@ public class UserPutDTO {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public Date getCreation_date() {
+        return creation_date;
+    }
+    public void setCreation_date(Date creation_date) {
+        this.creation_date = creation_date;
+    }
+
+    public UserStatus getLogged_in() {
+
+        if (logged_in!= null && logged_in == true) {
+            return (UserStatus.ONLINE);
+        }
+        else {
+            return (UserStatus.OFFLINE);
+        }
+    }
+
+
+    public void setLogged_in(boolean logged_in) {
+            this.logged_in = logged_in;
+    }
+
+
+
+    public Date getBirthday() {
+        return birthday;
+    }
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+
+
+
+
+
 
 
 }
