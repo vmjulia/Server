@@ -34,25 +34,53 @@ public class UserServiceIntegrationTest {
     userRepository.deleteAll();
   }
 
-  @Test
-  public void createUser_validInputs_success() {
-    // given
-    assertNull(userRepository.findByUsername("testUsername"));
 
-    User testUser = new User();
-    testUser.setPassword("testName");
-    testUser.setUsername("testUsername");
 
-    // when
-    User createdUser = userService.createUser(testUser);
+    @Test
+    public void login_Success() {
+        assertNull(userRepository.findByUsername("testUsername"));
 
-    // then
-    assertEquals(testUser.getId(), createdUser.getId());
-    assertEquals(testUser.getPassword(), createdUser.getPassword());
-    assertEquals(testUser.getUsername(), createdUser.getUsername());
-    assertNotNull(createdUser.getCreationDate());
-    //assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
-  }
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+
+
+        User createdUser = userService.createUser(testUser);
+
+
+        User testUser2 = new User();
+        testUser2.setPassword("testName");
+        testUser2.setUsername("testUsername");
+        User loggedinUser = userService.loginUser(testUser2);
+
+
+        assertEquals(testUser.getPassword(), loggedinUser.getPassword());
+        assertEquals(testUser.getUsername(), loggedinUser.getUsername());
+        assertEquals(testUser.getId(), createdUser.getId());
+
+
+    }
+
+    @Test
+    public void createUser_validInputs_success() {
+        // given
+        assertNull(userRepository.findByUsername("testUsername"));
+
+        User testUser = new User();
+        testUser.setPassword("testName");
+        testUser.setUsername("testUsername");
+
+        // when
+        User createdUser = userService.createUser(testUser);
+
+        // then
+        assertEquals(testUser.getId(), createdUser.getId());
+        assertEquals(testUser.getPassword(), createdUser.getPassword());
+        assertEquals(testUser.getUsername(), createdUser.getUsername());
+        assertNotNull(createdUser.getCreationDate());
+        //assertEquals(UserStatus.OFFLINE, createdUser.getStatus());
+    }
+
 
   @Test
   public void createUser_duplicateUsername_throwsException() {
@@ -74,29 +102,7 @@ public class UserServiceIntegrationTest {
     assertThrows(ResponseStatusException.class, () -> userService.createUser(testUser2));
   }
 
-    @Test
-    public void login_Success() {
-        assertNull(userRepository.findByUsername("testUsername"));
 
-        User testUser = new User();
-        testUser.setPassword("testName");
-        testUser.setUsername("testUsername");
-        testUser.setId(1L);
-        userService.createUser(testUser);
-
-        // attempt to create second user with same username
-        User testUser2 = new User();
-        testUser2.setPassword("testName");
-        testUser2.setUsername("testUsername");
-        User loggedinUser = userService.loginUser(testUser2);
-
-
-
-        // check that an error is thrown
-        assertEquals(testUser.getPassword(), loggedinUser.getPassword());
-        assertEquals(testUser.getUsername(), loggedinUser.getUsername());
-        assertEquals(testUser.getId(), loggedinUser.getId());
-    }
 
 
     @Test
@@ -106,8 +112,7 @@ public class UserServiceIntegrationTest {
         User testUser = new User();
         testUser.setPassword("testName");
         testUser.setUsername("testUsername");
-        testUser.setId(1L);
-        userService.createUser(testUser);
+        User createdUser = userService.createUser(testUser);
 
         // attempt to create second user with same username
         User testUser2 = new User();
@@ -127,7 +132,7 @@ public class UserServiceIntegrationTest {
         testUser.setPassword("testName");
         testUser.setUsername("testUsername");
         testUser.setId(1L);
-        userService.createUser(testUser);
+        User createdUser = userService.createUser(testUser);
 
         // attempt to create second user with same username
         User testUser2 = new User();
@@ -145,12 +150,11 @@ public class UserServiceIntegrationTest {
         User testUser = new User();
         testUser.setPassword("testName");
         testUser.setUsername("testUsername");
-        testUser.setId(1L);
-        userService.createUser(testUser);
+
+        User createdUser= userService.createUser(testUser);
 
 
-        User foundUser = userService.getUserById(1L);
-
+        User foundUser = userService.getUserById(createdUser.getId());
 
 
         // check that an error is thrown
@@ -159,19 +163,6 @@ public class UserServiceIntegrationTest {
         assertEquals(testUser.getId(), foundUser.getId());
     }
 
-    @Test
-    public void getbyId_Fail() {
-        assertNull(userRepository.findByUsername("testUsername"));
-
-        User testUser = new User();
-        testUser.setPassword("testName");
-        testUser.setUsername("testUsername");
-        testUser.setId(1L);
-        userService.createUser(testUser);
-
-
-        assertThrows(ResponseStatusException.class, () -> userService.getUserById(2L));
-    }
 
 
     @Test
@@ -182,15 +173,15 @@ public class UserServiceIntegrationTest {
         testUser.setPassword("testName");
         testUser.setUsername("testUsername");
         testUser.setId(1L);
-        userService.createUser(testUser);
+        User createdUser = userService.createUser(testUser);
 
         User testUser2 = new User();
         testUser2.setUsername("testUsername2");
 
 
 
-        userService.updateUserById(1L, testUser2);
-        User res = userService.getUserById(1L);
+        userService.updateUserById(createdUser.getId(), testUser2);
+        User res = userService.getUserById(createdUser.getId());
 
         // check that an error is thrown
 
@@ -206,12 +197,13 @@ public class UserServiceIntegrationTest {
         testUser.setPassword("testName");
         testUser.setUsername("testUsername");
         testUser.setId(1L);
-        userService.createUser(testUser);
+        User createdUser = userService.createUser(testUser);
 
         User testUser2 = new User();
         testUser2.setUsername("testUsername2");
+        Long nextId = createdUser.getId()+1;
 
-        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(2L, testUser2));
+        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(nextId, testUser2));
 
     }
 
@@ -227,11 +219,14 @@ public class UserServiceIntegrationTest {
         testUser2.setPassword("testName2");
         testUser2.setUsername("testUsername2");
         testUser2.setId(2L);
-        userService.createUser(testUser);
-        userService.createUser(testUser2);
+        User createdUser1 = userService.createUser(testUser);
+        User createdUser2 = userService.createUser(testUser2);
 
 
-        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(1L, testUser2));
+        assertThrows(ResponseStatusException.class, () -> userService.updateUserById(createdUser1.getId(), testUser2));
 
     }
+
+
+
 }

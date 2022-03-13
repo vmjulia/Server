@@ -52,6 +52,7 @@ public class UserServiceTest {
     Mockito.when(userRepository.save(Mockito.any())).thenReturn(testUser);
   }
 
+
   @Test
   public void createUser_validInputs_success() {
     // when -> any object is being save in the userRepository -> return the dummy
