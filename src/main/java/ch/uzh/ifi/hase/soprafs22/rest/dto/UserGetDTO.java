@@ -3,7 +3,9 @@ package ch.uzh.ifi.hase.soprafs22.rest.dto;
 import ch.uzh.ifi.hase.soprafs22.constant.UserStatus;
 
 import java.util.Date;
-
+/**
+ * fields as specified in the task
+ */
 public class UserGetDTO {
 
     private Long id;
@@ -37,7 +39,9 @@ public class UserGetDTO {
         return logged_in;
     }
 
-
+    /**
+     * for correct mapping between User and this one
+     */
     public void setLogged_in(UserStatus logged_in) {
 
         if (logged_in!= null && logged_in == UserStatus.ONLINE) {

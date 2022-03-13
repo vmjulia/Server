@@ -3,7 +3,9 @@ package ch.uzh.ifi.hase.soprafs22.rest.dto;
 import ch.uzh.ifi.hase.soprafs22.constant.UserStatus;
 
 import java.util.Date;
-
+/**
+ class to store info to send oput requests, so contasins those fields which are supposed to change
+ */
 public class UserPutDTO {
 
     private Long id;
@@ -32,7 +34,9 @@ public class UserPutDTO {
     public void setCreation_date(Date creation_date) {
         this.creation_date = creation_date;
     }
-
+    /**
+     tbis is for the mapping between this and user status from the class status
+     */
     public UserStatus getLogged_in() {
 
         if (logged_in!= null && logged_in == true) {

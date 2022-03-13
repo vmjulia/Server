@@ -38,7 +38,7 @@ public class UserService {
     return this.userRepository.findAll();
   }
 
-
+    /** find the user by id and if found return it, otheriwise throw error */
   public User getUserById(Long id ){
 
        Optional<User> user =  userRepository.findById(id);
@@ -55,6 +55,8 @@ public class UserService {
   }
 
 
+    /** find the user by id and update it depending on what is provided: username/bd/status.
+     * when updating username make sure that such username does not exist already */
   public void updateUserById(Long id, User userNew){
 
 
@@ -82,7 +84,8 @@ public class UserService {
     }
 
 
-
+    /** function to login the user veryfying that credentials and correct ptherwise throws error
+     * it also changes status to onlin eif success */
 
 public User loginUser(User newUser){
     User userByUsername = userRepository.findByUsername(newUser.getUsername());
@@ -103,6 +106,7 @@ public User loginUser(User newUser){
 
 }
 
+    /** fore registering user, saves todaxs day, verifiesthat there is no conflict in username and if success saves to repository */
   public User createUser(User newUser) {
       newUser.setToken(UUID.randomUUID().toString());
 
@@ -125,7 +129,7 @@ public User loginUser(User newUser){
   }
 
   /**
-   * This is a helper method that will check the uniqueness criteria of the
+   * This is helper method that will check the uniqueness criteria of the
    * username and the name
    * defined in the User entity. The method will do nothing if the input is unique
    * and throw an error otherwise.
@@ -143,6 +147,17 @@ public User loginUser(User newUser){
     }
   }
 
+    /**
+     * This is helper method that will check the uniqueness criteria of the
+     * username and the name
+     * defined in the User entity. makes sure that the user with whom we compare is not the same that we are considering now. The method will do nothing if the input is unique
+     * and throw an error otherwise.
+     *
+     * @param userToBeCreated, existingUser
+     * @throws org.springframework.web.server.ResponseStatusException
+     * @see User
+     */
+
     private void checkIfAnotherUserExists(User userToBeCreated, User existingUser) {
         User userByUsername = userRepository.findByUsername(userToBeCreated.getUsername());
         String baseErrorMessage = "change User failed because username already exists";
@@ -153,6 +168,7 @@ public User loginUser(User newUser){
     }
 
 /**
+ used initially but then showed to be unnecerssary
     private void checkIfEmpty(User userToBeCreated) {
 
         String baseErrorMessage = "The %s provided is null. Therefore, the user could not be created!";

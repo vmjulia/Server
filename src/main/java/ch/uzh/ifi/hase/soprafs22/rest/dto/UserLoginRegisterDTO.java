@@ -3,7 +3,8 @@ package ch.uzh.ifi.hase.soprafs22.rest.dto;
 import ch.uzh.ifi.hase.soprafs22.constant.UserStatus;
 
 import java.util.Date;
-
+/** similar to get dto however contains token additionally
+ */
 public class UserLoginRegisterDTO {
 
     private Long id;
@@ -37,6 +38,10 @@ public class UserLoginRegisterDTO {
     public boolean getLogged_in() {
         return logged_in;
     }
+
+    /**
+     * for correct mapping between user and this one
+     */
     public void setLogged_in(UserStatus logged_in) {
         if (logged_in == UserStatus.ONLINE){
             this.logged_in = true;

@@ -18,6 +18,8 @@ import org.mapstruct.factory.Mappers;
  * Additional mappers can be defined for new entities.
  * Always created one mapper for getting information (GET) and one mapper for
  * creating information (POST).
+ * put and post : are accepted from the client and afterwards transferred to user
+ * get and login/reg are vice versa returned to cliengt hence the opposite mapping is made
  */
 @Mapper
 public interface DTOMapper {

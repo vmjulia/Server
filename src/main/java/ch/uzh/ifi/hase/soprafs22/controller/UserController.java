@@ -29,6 +29,9 @@ public class UserController {
   UserController(UserService userService) {
     this.userService = userService;
   }
+    /**
+     * create list of users by sending request to user service. convert each one to the getdto - this is what is returned to the cliet
+     */
 
   @GetMapping("/users")
   @ResponseStatus(HttpStatus.OK)
@@ -45,6 +48,10 @@ public class UserController {
     return userGetDTOs;
   }
 
+    /**
+     same as above just only one user which is searched by id
+     */
+
   @GetMapping("/users/{userId}")
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -53,6 +60,13 @@ public class UserController {
         User foundUser = userService.getUserById(userId);
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(foundUser);
     }
+
+
+    /**
+    according to specifications
+     accepts PostDTO object, converts to userInput of type user and send it to the server to create it. if success gets
+     User type object back, converts to GETDTO object and returns
+     */
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
@@ -68,6 +82,10 @@ public class UserController {
         return DTOMapper.INSTANCE.convertEntityToUserGetDTO(createdUser);
     }
 
+    /**
+    same as above however different return type - loginRegisterDTO, it contains token
+     */
+
   @PostMapping("/users/register")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -82,6 +100,10 @@ public class UserController {
     return DTOMapper.INSTANCE.convertEntityToUserLoginRegisterDTO(createdUser);
   }
 
+    /**
+     very similar to the above function, but calls function login from the service
+     */
+
     @PostMapping("/users/login")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -95,6 +117,11 @@ public class UserController {
         // convert internal representation of user back to API
         return DTOMapper.INSTANCE.convertEntityToUserLoginRegisterDTO(loggedUser);
     }
+
+    /**
+     accepts putDTO object and sends it to convert to User object. afterwards changes are deligated to service and if success nothng is returned
+     */
+
   @PutMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ResponseBody
