@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import lpsolve.*;
 
 @RestController
 @SpringBootApplication
@@ -20,8 +21,10 @@ public class Application {
   @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public String helloWorld() {
+  public String helloWorld() throws LpSolveException {
+      LpSolve lpsolve = LpSolve.makeLp(0, 1);
     return "The application is running.";
+
   }
 
   @Bean
