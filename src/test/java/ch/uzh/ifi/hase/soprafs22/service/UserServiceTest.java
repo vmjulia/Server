@@ -3,6 +3,8 @@ package ch.uzh.ifi.hase.soprafs22.service;
 import ch.uzh.ifi.hase.soprafs22.constant.UserStatus;
 import ch.uzh.ifi.hase.soprafs22.entity.User;
 import ch.uzh.ifi.hase.soprafs22.repository.UserRepository;
+import lpsolve.LpSolve;
+import lpsolve.LpSolveException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -38,8 +40,9 @@ public class UserServiceTest {
   private User testUser;
 
   @BeforeEach
-  public void setup() {
+  public void setup() throws LpSolveException {
     MockitoAnnotations.openMocks(this);
+
 
     // given
     testUser = new User();
@@ -54,10 +57,12 @@ public class UserServiceTest {
 
 
   @Test
-  public void createUser_validInputs_success() {
+  public void createUser_validInputs_success() throws LpSolveException {
     // when -> any object is being save in the userRepository -> return the dummy
     // testUser
+
     User createdUser = userService.createUser(testUser);
+    LpSolve lpsolve = LpSolve.makeLp(0, 1);
 
     // then
     Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any());
