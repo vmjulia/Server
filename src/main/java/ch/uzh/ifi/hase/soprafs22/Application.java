@@ -23,7 +23,8 @@ public class Application {
   @ResponseBody
   public String helloWorld() throws LpSolveException {
       LpSolve lpsolve = LpSolve.makeLp(0, 1);
-    return "The application is running.";
+
+    return "works The application is running.";
 
   }
 
