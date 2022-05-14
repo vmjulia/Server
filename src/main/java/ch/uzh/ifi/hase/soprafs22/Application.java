@@ -31,7 +31,8 @@ public class Application {
 
       // set objective function
       solver.strSetObjFn("2 ");
-      solver.setVerbose(LpSolve.IMPORTANT);
+      //solver.setVerbose(LpSolve.IMPORTANT);
+      solver.setMaxim();
 
       // solve the problem
       solver.solve();
