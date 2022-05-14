@@ -22,17 +22,14 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld() throws LpSolveException {
-      LpSolve solver = LpSolve.makeLp(0, 4);
+      LpSolve solver = LpSolve.makeLp(0, 1);
 
       // add constraints
-      solver.strAddConstraint("3 2 2 1", LpSolve.LE, 4);
-      solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+      solver.strAddConstraint("3", LpSolve.LE, 4);
+      //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
 
       // set objective function
-      solver.strSetObjFn("2 3 -2 3");
-
-
-
+      solver.strSetObjFn("2");
 
 
       // solve the problem
