@@ -22,14 +22,14 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld() throws LpSolveException {
-      LpSolve solver = LpSolve.makeLp(0, 4);
+      LpSolve solver = LpSolve.makeLp(0, 1);
 
       // add constraints
-      solver.strAddConstraint("3 2 2 1", LpSolve.LE, 4);
-      solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+      solver.strAddConstraint("1", LpSolve.GE, 2);
+      //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
 
       // set objective function
-      solver.strSetObjFn("2 3 -2 3");
+      solver.strSetObjFn("2 ");
       solver.setVerbose(LpSolve.IMPORTANT);
 
       // solve the problem
@@ -46,7 +46,7 @@ public class Application {
       solver.deleteLp();
 
 
-     return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 3])  + "var 3"+ Double.toString(solution[firstVar + 2])  +"obj function" + Double.toString(solver.getObjective());
+     return  Double.toString(solution[firstVar + 0])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
