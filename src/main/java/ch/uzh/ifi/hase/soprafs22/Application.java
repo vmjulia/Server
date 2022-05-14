@@ -33,6 +33,8 @@ public class Application {
 
       // solve the problem
       solver.solve();
+      double[] solution = solver.getPtrPrimalSolution();
+      int firstVar = 1 + solver .getNrows();
 
       // print solution
       System.out.println("Value of objective function: " + solver.getObjective());
@@ -41,7 +43,7 @@ public class Application {
           System.out.println("Value of var[" + i + "] = " + var[i]);
       }
 
-    return  Double.toString(var[0])+ "var 1"+ Double.toString(var[1]) + "var 2"+ Double.toString(var[2])  + "var 3"+ Double.toString(var[3])  +"obj function" + Double.toString(solver.getObjective());
+    return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 2])  + "var 3"+ Double.toString(solution[firstVar + 3])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
