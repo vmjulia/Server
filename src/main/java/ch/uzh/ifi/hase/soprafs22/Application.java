@@ -30,7 +30,9 @@ public class Application {
 
 
       // set objective function
-      solver.strSetObjFn("2 3 -2 3");
+      double []row;
+      row = new double[]{2.0, 3.0,-2.0, 3.0};
+      solver.setObjFn(row);
       solver.setBinary(1, true);
       solver.setBinary(4, true);
 
