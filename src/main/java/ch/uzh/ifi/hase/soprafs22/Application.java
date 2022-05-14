@@ -22,24 +22,26 @@ public class Application {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String helloWorld() throws LpSolveException {
-      LpSolve solver = LpSolve.makeLp(0, 1);
+      LpSolve solver = LpSolve.makeLp(0, 4);
 
       // add constraints
-      solver.strAddConstraint("3", LpSolve.LE, 4);
-      //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+      solver.strAddConstraint("3 2 2 1", LpSolve.LE, 4);
+      solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
 
       // set objective function
-      solver.strSetObjFn("2");
-
+      solver.strSetObjFn("2 3 -2 3");
 
       // solve the problem
-      int a = solver.solve();
-      double[]sol  = solver.getPtrVariables();
+      solver.solve();
 
       // print solution
       System.out.println("Value of objective function: " + solver.getObjective());
+      double[] var = solver.getPtrVariables();
+      for (int i = 0; i < var.length; i++) {
+          System.out.println("Value of var[" + i + "] = " + var[i]);
+      }
 
-    return  Double.toString(sol[0])+ "res"+ Double.toString(a) +"works The application is running" + Double.toString(solver.getObjective());
+    return  Double.toString(var[0])+ "var 1"+ Double.toString(var[1]) + "var 2"+ Double.toString(var[2])  + "var 3"+ Double.toString(var[3])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
