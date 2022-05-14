@@ -47,7 +47,7 @@ public class Application {
 
 
 
-     return  Double.toString(solution[firstVar + 0])  +"obj function" + Double.toString(solver.getObjective());
+     return  Double.toString(var[0])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
