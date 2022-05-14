@@ -32,7 +32,7 @@ public class Application {
       // set objective function
       double [] row = new double[2];
       row[0] = 0.0;
-      row[0] = 1.0;
+      row[1] = 2.0;
       solver.setObjFn(row);
 
       // set objective function
