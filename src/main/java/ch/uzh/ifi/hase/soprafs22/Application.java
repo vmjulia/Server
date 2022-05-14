@@ -34,7 +34,7 @@ public class Application {
       // solve the problem
       solver.solve();
       double[] solution = solver.getPtrPrimalSolution();
-      int firstVar = 1 + solver .getNrows();
+      int firstVar = 1 + solver.getNrows();
 
       // print solution
       System.out.println("Value of objective function: " + solver.getObjective());
