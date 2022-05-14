@@ -43,7 +43,8 @@ public class Application {
           System.out.println("Value of var[" + i + "] = " + var[i]);
       }
 
-    return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 2])  + "var 3"+ Double.toString(solution[firstVar + 3])  +"obj function" + Double.toString(solver.getObjective());
+
+    return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 3])  + "var 3"+ Double.toString(solution[firstVar + 2])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
