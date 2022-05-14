@@ -35,6 +35,7 @@ public class Application {
       solver.setObjFn(row);
       solver.setBinary(1, true);
       //solver.setBinary(4, true);
+      solver.setMaxim();
 
       // solve the problem
       solver.solve();
