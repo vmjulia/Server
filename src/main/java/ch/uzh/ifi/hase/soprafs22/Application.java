@@ -25,13 +25,13 @@ public class Application {
       LpSolve solver = LpSolve.makeLp(0, 1);
 
       // add constraints
-      //solver.strAddConstraint("3 2 2 1", LpSolve.LE, 4);
+      solver.strAddConstraint("3 ", LpSolve.LE, 4);
       //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
 
 
       // set objective function
       double []row;
-      row = new double[]{10};
+      row = new double[]{1.0};
       solver.setObjFn(row);
       //solver.setBinary(1, false);
       //solver.setBinary(4, true);
