@@ -38,12 +38,12 @@ public class Application {
       solver.setMaxim();
 
       // solve the problem
-      solver.solve();
+      int a = solver.solve();
 
       // print solution
       System.out.println("Value of objective function: " + solver.getObjective());
 
-    return "works The application is running" + Double.toString(solver.getObjective());
+    return Double.toString(a) +"works The application is running" + Double.toString(solver.getObjective());
 
   }
 
