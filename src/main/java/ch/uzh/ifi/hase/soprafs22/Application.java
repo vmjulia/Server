@@ -32,7 +32,10 @@ public class Application {
       // set objective function
       double [] row = new double[1];
       row[0] = 2.0;
-      solver.setObjFn(row);
+      //solver.setObjFn(row);
+
+      // set objective function
+      solver.strSetObjFn("2 ");
       //solver.setVerbose(LpSolve.IMPORTANT);
       solver.setMaxim();
 
