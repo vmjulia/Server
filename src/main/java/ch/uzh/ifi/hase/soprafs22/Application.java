@@ -30,6 +30,7 @@ public class Application {
 
       // set objective function
       solver.strSetObjFn("2 3 -2 3");
+      solver.setVerbose(LpSolve.IMPORTANT);
 
       // solve the problem
       solver.solve();
