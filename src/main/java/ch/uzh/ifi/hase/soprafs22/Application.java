@@ -31,8 +31,8 @@ public class Application {
 
       // set objective function
       solver.strSetObjFn("2 3 -2 3");
-      solver.setBinary(0, true);
-      solver.setBinary(3, true);
+      solver.setBinary(1, true);
+      solver.setBinary(4, true);
 
       // solve the problem
       solver.solve();
