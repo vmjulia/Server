@@ -27,6 +27,7 @@ public class Application {
       // add constraints
       solver.strAddConstraint("1", LpSolve.GE, 2);
       //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+      solver.setBinary(1, true);
 
       // set objective function
       solver.strSetObjFn("2 ");
