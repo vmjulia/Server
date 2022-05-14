@@ -43,9 +43,10 @@ public class Application {
       for (int i = 0; i < var.length; i++) {
           System.out.println("Value of var[" + i + "] = " + var[i]);
       }
+      solver.deleteLp();
 
 
-    return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 3])  + "var 3"+ Double.toString(solution[firstVar + 2])  +"obj function" + Double.toString(solver.getObjective());
+     return  Double.toString(solution[firstVar + 0])+ "var 1"+ Double.toString(solution[firstVar + 1]) + "var 2"+ Double.toString(solution[firstVar + 3])  + "var 3"+ Double.toString(solution[firstVar + 2])  +"obj function" + Double.toString(solver.getObjective());
 
   }
 
