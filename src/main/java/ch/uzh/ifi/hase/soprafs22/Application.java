@@ -33,7 +33,7 @@ public class Application {
       double []row;
       row = new double[]{10};
       solver.setObjFn(row);
-      solver.setBinary(1, true);
+      solver.setBinary(1, false);
       //solver.setBinary(4, true);
       solver.setMaxim();
 
