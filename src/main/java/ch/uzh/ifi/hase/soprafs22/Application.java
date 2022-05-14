@@ -37,13 +37,15 @@ public class Application {
       //solver.setBinary(4, true);
       solver.setMaxim();
 
+
       // solve the problem
       int a = solver.solve();
+      double[]sol  = solver.getPtrVariables();
 
       // print solution
       System.out.println("Value of objective function: " + solver.getObjective());
 
-    return Double.toString(a) +"works The application is running" + Double.toString(solver.getObjective());
+    return  Double.toString(sol[0])+ "res"+ Double.toString(a) +"works The application is running" + Double.toString(solver.getObjective());
 
   }
 
