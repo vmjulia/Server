@@ -27,13 +27,14 @@ public class Application {
       // add constraints
       //solver.strAddConstraint("1", LpSolve.GE, 1);
       //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
-      solver.setBinary(1, true);
+
 
       // set objective function
       double [] row = new double[1];
       row[0] = 2.0;
       solver.setObjFn(row);
       //solver.setVerbose(LpSolve.IMPORTANT);
+      solver.setBinary(1, true);
       solver.setMaxim();
 
       // solve the problem
