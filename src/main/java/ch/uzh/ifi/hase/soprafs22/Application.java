@@ -30,12 +30,13 @@ public class Application {
 
       solver.setBinary(1, true);
       // set objective function
-      double [] row = new double[1];
-      row[0] = 2.0;
-      //solver.setObjFn(row);
+      double [] row = new double[2];
+      row[0] = 0.0;
+      row[0] = 1.0;
+      solver.setObjFn(row);
 
       // set objective function
-      solver.strSetObjFn("2 ");
+      //solver.strSetObjFn("2 ");
       //solver.setVerbose(LpSolve.IMPORTANT);
       solver.setMaxim();
 
