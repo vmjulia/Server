@@ -25,7 +25,10 @@ public class Application {
       LpSolve solver = LpSolve.makeLp(0, 1);
 
       // add constraints
-      solver.strAddConstraint("1", LpSolve.GE, 1);
+      double [] con = new double[2];
+      con[0] = 0.0;
+      con[1] = 2.0;
+      solver.addConstraint(con, LpSolve.GE, 1);
       //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
 
       solver.setBinary(1, true);
