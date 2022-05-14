@@ -34,7 +34,7 @@ public class Application {
       row = new double[]{1};
       solver.setObjFn(row);
       solver.setBinary(1, true);
-      solver.setBinary(4, true);
+      //solver.setBinary(4, true);
 
       // solve the problem
       solver.solve();
