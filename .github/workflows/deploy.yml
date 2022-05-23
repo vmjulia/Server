@@ -24,6 +24,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.15
+        web: java-Djava.library.path=/sopra/
 
 
     # uncomment for assignment
