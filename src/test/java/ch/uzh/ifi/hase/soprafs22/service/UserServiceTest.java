@@ -233,7 +233,7 @@ public class UserServiceTest {
 
 
 
-        assertEquals(1, 1);
+        assertEquals(4, solver.getObjective());
     }
 
 
