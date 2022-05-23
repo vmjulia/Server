@@ -195,6 +195,48 @@ public class UserServiceTest {
 
         assertThrows(ResponseStatusException.class, () -> userService.loginUser(testUser));
     }
+    @Test
+    public void testOptimizer() throws LpSolveException {
+        LpSolve solver = LpSolve.makeLp(0, 1);
+
+        // add constraints
+        double [] con = new double[2];
+        con[0] = 0.0;
+        con[1] = 2.0;
+        solver.addConstraint(con, LpSolve.GE, 1);
+        //solver.strAddConstraint("0 4 3 1", LpSolve.GE, 3);
+
+        solver.setBinary(1, true);
+        // set objective function
+        double [] row = new double[2];
+        row[0] = 0.0;
+        row[1] = 2.0;
+        solver.setObjFn(row);
+
+        // set objective function
+        //solver.strSetObjFn("2 ");
+        //solver.setVerbose(LpSolve.IMPORTANT);
+        solver.setMaxim();
+
+        // solve the problem
+        solver.solve();
+        double[] solution = solver.getPtrPrimalSolution();
+        int firstVar = 1 + solver.getNrows();
+
+        // print solution
+        System.out.println("Value of objective function: " + solver.getObjective());
+        double[] var = solver.getPtrVariables();
+        for (int i = 0; i < var.length; i++) {
+            System.out.println("Value of var[" + i + "] = " + var[i]);
+        }
+
+
+
+
+        assertEquals(1, 1);
+    }
+
+
 
 
 }
